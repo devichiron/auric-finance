@@ -20,11 +20,11 @@ contract BasicRebaser {
   event NotInitialized();
 
   uint256 public constant BASE = 1e18;
-  uint256 public constant WINDOW_SIZE = 12;
+  uint256 public constant WINDOW_SIZE = 24;
 
   address public ausc;
-  uint256[] public pricesXAU = new uint256[](12);
-  uint256[] public pricesAUSC = new uint256[](12);
+  uint256[] public pricesXAU = new uint256[](24);
+  uint256[] public pricesAUSC = new uint256[](24);
   uint256 public pendingXAUPrice = 0;
   uint256 public pendingAUSCPrice = 0;
   bool public noPending = true;
@@ -38,7 +38,7 @@ contract BasicRebaser {
   address public governance;
 
   uint256 public nextRebase = 0;
-  uint256 public constant REBASE_DELAY = 12 hours;
+  uint256 public constant REBASE_DELAY = 24 hours;
 
   modifier onlyGov() {
     require(msg.sender == governance, "only gov");
@@ -135,7 +135,7 @@ contract BasicRebaser {
       emit StillCold();
       return;
     }
-    // We want to rebase only at 1pm UTC and 12 hours later
+    // We want to rebase only at 1pm UTC everyday
     if (block.timestamp < nextRebase) {
       return;
     } else {
