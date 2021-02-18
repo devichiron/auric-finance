@@ -23,8 +23,8 @@ contract BasicRebaser {
   uint256 public constant WINDOW_SIZE = 24;
 
   address public ausc;
-  uint256[] public pricesXAU = new uint256[](24);
-  uint256[] public pricesAUSC = new uint256[](24);
+  uint256[] public pricesXAU = new uint256[](WINDOW_SIZE);
+  uint256[] public pricesAUSC = new uint256[](WINDOW_SIZE);
   uint256 public pendingXAUPrice = 0;
   uint256 public pendingAUSCPrice = 0;
   bool public noPending = true;
@@ -38,7 +38,7 @@ contract BasicRebaser {
   address public governance;
 
   uint256 public nextRebase = 0;
-  uint256 public constant REBASE_DELAY = 24 hours;
+  uint256 public constant REBASE_DELAY = WINDOW_SIZE * 1 hours;
 
   modifier onlyGov() {
     require(msg.sender == governance, "only gov");
